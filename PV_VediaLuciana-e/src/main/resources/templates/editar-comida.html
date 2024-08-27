@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Comida</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Editar Comida</h1>
+
+    <form th:action="@{/api/comidas/{id}(id=${comida.codigo})}" method="post">
+        <div>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" th:value="${comida.nombre}" required>
+        </div>
+        <div>
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" required th:text="${comida.descripcion}"></textarea>
+        </div>
+        <div>
+            <label for="categoria">Categoría:</label>
+            <select id="categoria" name="categoria" th:value="${comida.categoria}">
+                <option value="ENTRADA">Entrada</option>
+                <option value="PLATO_PRINCIPAL">Plato Principal</option>
+                <option value="POSTRE">Postre</option>
+            </select>
+        </div>
+        <div>
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" th:value="${comida.precio}" required>
+        </div>
+        <div>
+            <label for="foto">Foto:</label>
+            <input type="text" id="foto" name="foto

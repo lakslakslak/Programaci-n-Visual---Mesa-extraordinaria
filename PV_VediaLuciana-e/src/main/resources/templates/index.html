@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comidas del Restaurante</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h1>Comidas del Restaurante</h1>
+
+    <div>
+        <h3>Filtrar por Categoría</h3>
+        <form th:action="@{/api/comidas/categoria/{categoria}}" method="get">
+            <select name="categoria">
+                <option value="ENTRADA">Entrada</option>
+                <option value="PLATO_PRINCIPAL">Plato Principal</option>
+                <option value="POSTRE">Postre</option>
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Filtrar por Rango de Precios</h3>
+        <form th:action="@{/api/comidas/precio}" method="get">
+            <input type="number" name="min" placeholder="Precio Mínimo">
+            <input type="number" name="max" placeholder="Precio Máximo">
+            <button type="submit">Filtrar</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Lista de Comidas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="comida : ${comidas}">
+                    <td th:text="${comida.nombre}">Nombre</td>
+                    <td th:text="${comida.descripcion}">Descripción</td>
+                    <td th:text="${comida.categoria}">Categoría</td>
+                    <td th:text="${comida.precio}">Precio</td>
+                    <td>
+                        <a th:href="@{/editar-comida/{id}(id=${comida.codigo})}">Editar</a>
+                        <a th:href="@{/api/comidas/{id}(id=${comida.codigo})}" th:onclick="'return confirm('¿Estás seguro de que deseas eliminar esta comida?');'">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="/agregar-comida">Agregar Nueva Comida</a>
+</body>
+</html>
